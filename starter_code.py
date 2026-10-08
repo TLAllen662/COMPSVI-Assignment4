@@ -393,8 +393,6 @@ if __name__ == "__main__":
     
     # Uncomment these as you complete each part:
     
-    # test_sorting_correctness()
-    # benchmark_all_datasets()
-    # analyze_stability()
-    
-    print("\n⚠ Uncomment the test functions in the main block to run benchmarks!")
+    test_sorting_correctness()
+    benchmark_all_datasets()
+    analyze_stability()
