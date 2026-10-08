@@ -140,6 +140,81 @@ def _merge(left, right):
 # PART 2: STABILITY DEMONSTRATION
 # ============================================================================
 
+def _bubble_sort_by_price(items):
+    """Bubble sort a list of product dicts by 'price', mirroring bubble_sort's logic."""
+    arr = items.copy()
+    n = len(arr)
+    for i in range(n - 1):
+        for j in range(n - 1 - i):
+            if arr[j]["price"] > arr[j + 1]["price"]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+
+def _selection_sort_by_price(items):
+    """Selection sort a list of product dicts by 'price', mirroring selection_sort's logic."""
+    arr = items.copy()
+    n = len(arr)
+    for i in range(n - 1):
+        min_index = i
+        for j in range(i + 1, n):
+            if arr[j]["price"] < arr[min_index]["price"]:
+                min_index = j
+        if min_index != i:
+            arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+
+
+def _insertion_sort_by_price(items):
+    """Insertion sort a list of product dicts by 'price', mirroring insertion_sort's logic."""
+    arr = items.copy()
+    for i in range(1, len(arr)):
+        key_item = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j]["price"] > key_item["price"]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key_item
+    return arr
+
+
+def _merge_sort_by_price(items):
+    """Merge sort a list of product dicts by 'price', mirroring merge_sort's logic."""
+    if len(items) <= 1:
+        return items
+
+    mid = len(items) // 2
+    left = _merge_sort_by_price(items[:mid])
+    right = _merge_sort_by_price(items[mid:])
+
+    merged = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i]["price"] <= right[j]["price"]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged
+
+
+def _is_stable(sorted_items, original_items):
+    """
+    Check whether sorted_items preserves the original relative order of items
+    that share the same price (i.e., whether the sort was stable).
+    """
+    def positions_by_price(items):
+        order = {}
+        for item in items:
+            order.setdefault(item["price"], []).append(item["original_position"])
+        return order
+
+    return positions_by_price(sorted_items) == positions_by_price(original_items)
+
+
 def demonstrate_stability():
     """
     Demonstrate which sorting algorithms are stable by sorting products by price.
@@ -159,21 +234,20 @@ def demonstrate_stability():
         {"name": "Widget E", "price": 1999, "original_position": 4},
     ]
     
-    # TODO: Sort products by price using each algorithm
-    # Hint: You'll need to modify your sorting functions to work with dictionaries
-    # Hint: Or extract prices, sort them, and check if stable algorithms maintain original order
-    # Hint: For stable sort: items with price 999 should stay in order (B before D)
-    # Hint: For stable sort: items with price 1999 should stay in order (A before C before E)
-    
-    results = {
-        "bubble_sort": "Not tested",
-        "selection_sort": "Not tested", 
-        "insertion_sort": "Not tested",
-        "merge_sort": "Not tested"
+    # Sort products by price using each algorithm, then check if products that
+    # share the same price kept their original relative order (i.e. stability).
+    sorted_by_algorithm = {
+        "bubble_sort": _bubble_sort_by_price(products),
+        "selection_sort": _selection_sort_by_price(products),
+        "insertion_sort": _insertion_sort_by_price(products),
+        "merge_sort": _merge_sort_by_price(products),
     }
-    
-    # TODO: Test each algorithm and update results dictionary with "Stable" or "Unstable"
-    
+
+    results = {
+        name: ("Stable" if _is_stable(sorted_products, products) else "Unstable")
+        for name, sorted_products in sorted_by_algorithm.items()
+    }
+
     return results
 
 
