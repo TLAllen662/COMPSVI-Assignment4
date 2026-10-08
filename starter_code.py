@@ -29,11 +29,16 @@ def bubble_sort(arr):
     Example:
         bubble_sort([64, 34, 25, 12, 22, 11, 90]) returns [11, 12, 22, 25, 34, 64, 90]
     """
-    # TODO: Implement bubble sort
-    # Hint: Use nested loops - outer loop for passes, inner loop for comparisons
-    # Hint: Compare adjacent elements and swap if left > right
-    
-    pass  # Delete this and write your code
+    n = len(arr)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(n - 1 - i):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
 
 
 def selection_sort(arr):
@@ -52,10 +57,15 @@ def selection_sort(arr):
     Example:
         selection_sort([64, 34, 25, 12, 22, 11, 90]) returns [11, 12, 22, 25, 34, 64, 90]
     """
-    # TODO: Implement selection sort
-    # Hint: Find minimum element in unsorted portion, swap it with first unsorted element
-    
-    pass  # Delete this and write your code
+    n = len(arr)
+    for i in range(n - 1):
+        min_index = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        if min_index != i:
+            arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
 
 
 def insertion_sort(arr):
@@ -74,10 +84,14 @@ def insertion_sort(arr):
     Example:
         insertion_sort([64, 34, 25, 12, 22, 11, 90]) returns [11, 12, 22, 25, 34, 64, 90]
     """
-    # TODO: Implement insertion sort
-    # Hint: Start from second element, insert it into correct position in sorted portion
-    
-    pass  # Delete this and write your code
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
 
 
 def merge_sort(arr):
@@ -96,12 +110,30 @@ def merge_sort(arr):
     Example:
         merge_sort([64, 34, 25, 12, 22, 11, 90]) returns [11, 12, 22, 25, 34, 64, 90]
     """
-    # TODO: Implement merge sort
-    # Hint: Base case - if array has 1 or 0 elements, it's already sorted
-    # Hint: Recursive case - split array in half, sort each half, merge sorted halves
-    # Hint: You'll need a helper function to merge two sorted arrays
-    
-    pass  # Delete this and write your code
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    return _merge(left, right)
+
+
+def _merge(left, right):
+    """Merge two sorted lists into a single sorted list (stable)."""
+    merged = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged
 
 
 # ============================================================================
