@@ -56,6 +56,16 @@ python starter_code.py
 # or python3 starter_code.py
 ```
 
+## Starting the Application
+
+Build the Docker image with:
+
+```bash
+docker build -t sorting-performance-optimizer .
+```
+
+Note: this Node.js Dockerfile requires a `package.json` in the repository root; one is not currently present.
+
 ## The Four Scenarios
 
 ### Dataset A: Order Processing Queue (50,000 entries, nearly sorted)
