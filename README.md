@@ -56,22 +56,6 @@ python starter_code.py
 # or python3 starter_code.py
 ```
 
-## Starting the Application
-
-Build the Docker image with:
-
-```bash
-docker build -t sorting-performance-optimizer .
-```
-
-Run the image in detached mode and map port 3000 with:
-
-```bash
-docker run -d -p 3000:3000 --name sorting-performance-optimizer sorting-performance-optimizer
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
 ## The Four Scenarios
 
 ### Dataset A: Order Processing Queue (50,000 entries, nearly sorted)
