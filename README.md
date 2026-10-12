@@ -70,7 +70,7 @@ Run the image in detached mode and map port 3000 with:
 docker run -d -p 3000:3000 --name sorting-performance-optimizer sorting-performance-optimizer
 ```
 
-Note: the run command requires the image to exist. The build currently fails because the Node.js Dockerfile requires a `package.json` in the repository root, which is not present.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ## The Four Scenarios
 
