@@ -64,7 +64,13 @@ Build the Docker image with:
 docker build -t sorting-performance-optimizer .
 ```
 
-Note: this Node.js Dockerfile requires a `package.json` in the repository root; one is not currently present.
+Run the image in detached mode and map port 3000 with:
+
+```bash
+docker run -d -p 3000:3000 --name sorting-performance-optimizer sorting-performance-optimizer
+```
+
+Note: the run command requires the image to exist. The build currently fails because the Node.js Dockerfile requires a `package.json` in the repository root, which is not present.
 
 ## The Four Scenarios
 
